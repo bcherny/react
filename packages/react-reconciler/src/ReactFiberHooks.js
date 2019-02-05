@@ -616,6 +616,14 @@ function updateReducer<S, I, A>(
           markWorkInProgressReceivedUpdate();
         }
 
+        if (__DEV__) {
+          warning(
+            !Array.isArray(newState) || newState !== hook.memoizedState,
+            'It looks like you updated an array by mutating it. This probably is not what' +
+            'you wanted. Did you mean to update the array using a spread (...) instead?'
+          );
+        }
+
         hook.memoizedState = newState;
 
         // Don't persist the state accumlated from the render phase updates to
